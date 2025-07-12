@@ -5,11 +5,12 @@ error_reporting(E_ALL);
 // Get user input safely
 $userQuery = isset($_POST['user-input']) ? strtolower(trim($_POST['user-input'])) : '';
 error_log("User input: $userQuery");
-
 // Define recipes
 $vietnameseBeefRecipes = [
   [
     'name' => "Bò Kho (Vietnamese Beef Stew)",
+    'by_who' => "Grandma Lan",
+    'location' => "Saigon",
     'ingredients' => [
       "500g beef brisket or shank, cut into chunks",
       "2 carrots, cut into chunks",
@@ -39,6 +40,8 @@ $vietnameseBeefRecipes = [
   ],
   [
     'name' => "Bò Lúc Lắc (Shaking Beef)",
+    'by_who' => "Chef Tuan",
+    'location' => "Hanoi",
     'ingredients' => [
       "400g beef sirloin or tenderloin, cut into cubes",
       "2 tablespoons soy sauce",
@@ -62,6 +65,8 @@ $vietnameseBeefRecipes = [
   ],
   [
     'name' => "Phở Bò (Vietnamese Beef Noodle Soup)",
+    'by_who' => "Aunt Mai",
+    'location' => "Nam Định",
     'ingredients' => [
       "500g beef bones (marrow or knuckle)",
       "300g beef brisket or eye of round",
@@ -86,79 +91,86 @@ $vietnameseBeefRecipes = [
       "Slice beef thinly and place over noodles.",
       "Pour hot broth over to cook the beef.",
       "Serve with herbs, sprouts, lime, and chili."
+    ]
+  ],
+  [
+    'name' => "Bún Bò Huế (Spicy Beef Noodle Soup)",
+    'by_who' => "Mrs. Huong",
+    'location' => "Huế",
+    'ingredients' => [
+      "500g beef shank",
+      "500g pork hock (optional)",
+      "1 stalk lemongrass, bruised",
+      "3 tablespoons shrimp paste",
+      "2 tablespoons chili oil",
+      "1 tablespoon fish sauce",
+      "1 onion, halved",
+      "Salt and sugar to taste",
+      "Rice vermicelli (bún)",
+      "Fresh herbs: mint, cilantro, green onion",
+      "Lime wedges, banana blossoms, chili (optional)"
     ],
-    [
-  'name' => "Bún Bò Huế (Spicy Beef Noodle Soup)",
-  'ingredients' => [
-    "500g beef shank",
-    "500g pork hock (optional)",
-    "1 stalk lemongrass, bruised",
-    "3 tablespoons shrimp paste",
-    "2 tablespoons chili oil",
-    "1 tablespoon fish sauce",
-    "1 onion, halved",
-    "Salt and sugar to taste",
-    "Rice vermicelli (bún)",
-    "Fresh herbs: mint, cilantro, green onion",
-    "Lime wedges, banana blossoms, chili (optional)"
+    'instructions' => [
+      "Boil beef and pork briefly, discard water, and clean meat.",
+      "Refill pot with fresh water, add lemongrass and onion, simmer for 2 hours.",
+      "Add shrimp paste, fish sauce, salt, and sugar. Adjust to taste.",
+      "Cook vermicelli separately and place in bowls.",
+      "Top with sliced meat, pour in broth, and drizzle with chili oil.",
+      "Serve with herbs, lime, and banana blossoms."
+    ]
   ],
-  'instructions' => [
-    "Boil beef and pork briefly, discard water, and clean meat.",
-    "Refill pot with fresh water, add lemongrass and onion, simmer for 2 hours.",
-    "Add shrimp paste, fish sauce, salt, and sugar. Adjust to taste.",
-    "Cook vermicelli separately and place in bowls.",
-    "Top with sliced meat, pour in broth, and drizzle with chili oil.",
-    "Serve with herbs, lime, and banana blossoms."
-  ]
-],
-[
-  'name' => "Bò Né (Vietnamese Sizzling Beef Steak)",
-  'ingredients' => [
-    "2 beef steaks (sirloin or ribeye)",
-    "2 eggs",
-    "1 small onion, sliced",
-    "1 tomato, sliced",
-    "1 tablespoon soy sauce",
-    "1 tablespoon oyster sauce",
-    "1 teaspoon minced garlic",
-    "1 tablespoon butter",
-    "Salt and pepper to taste",
-    "Pate (optional)",
-    "Vietnamese baguette (bánh mì)"
+  [
+    'name' => "Bò Né (Vietnamese Sizzling Beef Steak)",
+    'by_who' => "Uncle Dũng",
+    'location' => "Cần Thơ",
+    'ingredients' => [
+      "2 beef steaks (sirloin or ribeye)",
+      "2 eggs",
+      "1 small onion, sliced",
+      "1 tomato, sliced",
+      "1 tablespoon soy sauce",
+      "1 tablespoon oyster sauce",
+      "1 teaspoon minced garlic",
+      "1 tablespoon butter",
+      "Salt and pepper to taste",
+      "Pate (optional)",
+      "Vietnamese baguette (bánh mì)"
+    ],
+    'instructions' => [
+      "Marinate beef with soy sauce, oyster sauce, garlic, salt, and pepper for 30 mins.",
+      "Heat a cast iron pan with butter until sizzling.",
+      "Add steak and sear both sides.",
+      "Push steak aside, add onion, tomato, and crack in the egg(s).",
+      "Add a scoop of pate if using.",
+      "Serve hot in the pan with baguette on the side."
+    ]
   ],
-  'instructions' => [
-    "Marinate beef with soy sauce, oyster sauce, garlic, salt, and pepper for 30 mins.",
-    "Heat a cast iron pan with butter until sizzling.",
-    "Add steak and sear both sides.",
-    "Push steak aside, add onion, tomato, and crack in the egg(s).",
-    "Add a scoop of pate if using.",
-    "Serve hot in the pan with baguette on the side."
-  ]
-],
-[
-  'name' => "Bò Xào Sả Ớt (Stir-Fried Lemongrass Chili Beef)",
-  'ingredients' => [
-    "400g beef (flank or sirloin), thinly sliced",
-    "2 stalks lemongrass, finely minced",
-    "2 red chili peppers, thinly sliced",
-    "1 tablespoon fish sauce",
-    "1 tablespoon oyster sauce",
-    "1 teaspoon sugar",
-    "1 teaspoon minced garlic",
-    "2 tablespoons cooking oil",
-    "Fresh cilantro (for garnish)",
-    "Steamed rice (to serve)"
-  ],
-  'instructions' => [
-    "Marinate beef with fish sauce, oyster sauce, sugar, and garlic for 20 minutes.",
-    "Heat oil in a wok or pan over medium heat.",
-    "Add lemongrass and chili, stir-fry until fragrant.",
-    "Add beef and stir-fry quickly until cooked through.",
-    "Serve hot over rice, garnished with cilantro."
-  ]
-]
+  [
+    'name' => "Bò Xào Sả Ớt (Stir-Fried Lemongrass Chili Beef)",
+    'by_who' => "Chef Linh",
+    'location' => "Đà Nẵng",
+    'ingredients' => [
+      "400g beef (flank or sirloin), thinly sliced",
+      "2 stalks lemongrass, finely minced",
+      "2 red chili peppers, thinly sliced",
+      "1 tablespoon fish sauce",
+      "1 tablespoon oyster sauce",
+      "1 teaspoon sugar",
+      "1 teaspoon minced garlic",
+      "2 tablespoons cooking oil",
+      "Fresh cilantro (for garnish)",
+      "Steamed rice (to serve)"
+    ],
+    'instructions' => [
+      "Marinate beef with fish sauce, oyster sauce, sugar, and garlic for 20 minutes.",
+      "Heat oil in a wok or pan over medium heat.",
+      "Add lemongrass and chili, stir-fry until fragrant.",
+      "Add beef and stir-fry quickly until cooked through.",
+      "Serve hot over rice, garnished with cilantro."
+    ]
   ]
 ];
+
 // Search for multiple matches
 $matchedRecipes = [];
 
