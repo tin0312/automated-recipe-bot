@@ -18,13 +18,19 @@
             <h1>What should we eat today?</h1>
             <form action="recipes_details.php" method="GET">
                 <label>
-                    <input type="text" name="user-input" placeholder="Search for recipes..."/>
+                    <input type="text" name="user-input" placeholder="Search for recipes..." />
                 </label>
-                <input type="submit" value="Send" />
+                <input type="submit" value="Send" disabled />
             </form>
         </section>
     </main>
     <script>
+        const userInput = document.querySelector('input[type="text"]');
+        const submitBtn = document.querySelector('input[type="submit"]');
+
+        userInput.addEventListener("input", () => {
+            submitBtn.disabled = userInput.value.trim() === "";
+        });
     </script>
 </body>
 
