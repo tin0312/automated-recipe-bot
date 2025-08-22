@@ -1,37 +1,39 @@
 <!DOCTYPE html>
-<html lang="eng">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <title>CookGPT</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cook GPT</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="script/searchInput.js"></script>
+    <script src="script/showRecipesForm.js"></script>
 </head>
-
 <body>
-    <header class="buttons-container">
-        <a href="/">Get started</a>
-        <a href="/">Sign In</a>
-    </header>
-    <main>
-        <section class="prompt-container">
-            <h1>What should we eat today?</h1>
-            <form action="recipes_details.php" method="GET">
-                <label>
-                    <input type="text" name="user-input" placeholder="Search for recipes..." />
-                </label>
-                <input type="submit" value="Send" disabled />
-            </form>
-        </section>
-    </main>
-    <script>
-        const userInput = document.querySelector('input[type="text"]');
-        const submitBtn = document.querySelector('input[type="submit"]');
+    <div id="errors" class=""></div>
+    <div id="main-header" class="main-header">
+          <h1>This is the header</h1>
+          <a href="#add-recipes">Add recipe</a>
+    </div>
+    <div id="main-content" class="main-content hide-left-menu hide-header"></div>
+    <div id="footer" class="footer">
+        &copy; <?=date('Y') ?> Truong Nhat Hoang || All right reserve
+    </div>
 
-        userInput.addEventListener("input", () => {
-            submitBtn.disabled = userInput.value.trim() === "";
-        });
+    <script>
+        function handleRoute(){
+            const hash = window.location.hash.slice(1);
+            console.log(hash);
+            switch(hash){
+                case "add-recipes":
+                    showRecipesForm();
+                    break;
+                default:
+                    searchInput();    
+            }
+        }
+        window.addEventListener('load', function(){
+            handleRoute();
+        })
+        window.addEventListener('hashchange', handleRoute);
     </script>
 </body>
-
-</html>
