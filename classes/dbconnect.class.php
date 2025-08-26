@@ -1,4 +1,15 @@
 <?php
+
+use Dotenv\Dotenv;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+// Load .env from the project root
+$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv->load();
+
+
+
 class DbConnect
 {
     private string $host;
@@ -15,11 +26,20 @@ class DbConnect
         ?string $pass = null,
         ?int $port = null
     ) {
-        $this->host = $host ?? getenv('DB_HOST');
-        $this->user = $user ?? getenv('DB_USER');
-        $this->pass = $pass ?? getenv('DB_PASS');
+        // Use provided values or fall back to environment variables
+        $this->host = $host ?? $_ENV['DB_HOST'];
+        $this->user = $user ?? $_ENV['DB_USER'];
+        $this->pass = $pass ?? $_ENV['DB_PASS'];
         $this->db = $db;
-        $this->port = $port ?? (int) (getenv('DB_PORT') ?: 3306);
+        $this->port = $port ?? (int) ($_ENV['DB_PORT'] ?? 3306);
+
+        // Debug output
+        echo "Final values:<br>";
+        echo "Host: " . $this->host . "<br>";
+        echo "User: " . $this->user . "<br>";
+        echo "Password: " . (empty($this->pass) ? '[empty]' : '[set]') . "<br>";
+        echo "Port: " . $this->port . "<br>";
+        echo "Database: " . $this->db . "<br>";
     }
 
     public function connect(): PDO

@@ -1,14 +1,14 @@
 async function updateMain(htmlContent) {
-    const main = document.getElementById("main-content");
-    main.style.opacity = '0';
-    await new Promise(r => setTimeout(r, 200)); // fade out
-    main.innerHTML = htmlContent;
-    main.style.opacity = '1'; // fade in
+  const main = document.getElementById("main-content");
+  main.style.opacity = '0';
+  await new Promise(r => setTimeout(r, 200)); // fade out
+  main.innerHTML = htmlContent;
+  main.style.opacity = '1'; // fade in
 }
 
 
-async function showRecipesForm() {
-    const html = `
+export async function addRecipes() {
+  const html = `
        <a href="#">Home</a>
        <form id="add_recipes_form">
   <input id="recipe-name" type="text" name="name" placeholder="Recipe Name" required>
@@ -62,15 +62,15 @@ async function showRecipesForm() {
 
     `;
 
-    await updateMain(html);
+  await updateMain(html);
 
-    const form = document.getElementById('add_recipes_form');
+  const form = document.getElementById('add_recipes_form');
 
 
-    const request = new XMLHttpRequest();
+  const request = new XMLHttpRequest();
 
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
     const recipeName = document.getElementById('recipe-name')?.value.trim() || '';
     const recipDescription = document.getElementById('recipe-description')?.value.trim() || '';
@@ -81,26 +81,26 @@ async function showRecipesForm() {
     const cuisine = document.getElementById('cuisine')?.value.trim() || '';
     const mainIngredient = document.getElementById('main-ingredient')?.value.trim() || '';
     const dietaryPreference = document.getElementById('dietary-preference')?.value.trim() || '';
-  
-        request.open("POST", "../automated-recipe-bot/api/recipes/addRecipes.api.php", true);
-        request.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                //  const response = JSON.parse(this.responseText);
-                console.log(this.responseText); // "Hello from the API!"              
-            }
-        }
 
-        const formData = new FormData();
-        formData.append("recipe-name", recipeName);
-        formData.append("recipe-description", recipDescription);
-        formData.append("recipe-main-ingredient", recipeMainIngredient);
-        formData.append("recipe-instructions", recipeInstructions);
-        formData.append("recipe-video-url", recipeVideoUrl);
-        formData.append("meal-type", mealType);
-        formData.append("cuisine", cuisine);
-        formData.append("main-ingredient", mainIngredient);
-        formData.append("dietary-preference", dietaryPreference);
-      
-        request.send(formData)
-    })
+    request.open("POST", "../automated-recipe-bot/api/recipes/addRecipes.api.php", true);
+    request.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        //  const response = JSON.parse(this.responseText);
+        console.log(this.responseText); // "Hello from the API!"              
+      }
+    }
+
+    const formData = new FormData();
+    formData.append("recipe-name", recipeName);
+    formData.append("recipe-description", recipDescription);
+    formData.append("recipe-main-ingredient", recipeMainIngredient);
+    formData.append("recipe-instructions", recipeInstructions);
+    formData.append("recipe-video-url", recipeVideoUrl);
+    formData.append("meal-type", mealType);
+    formData.append("cuisine", cuisine);
+    formData.append("main-ingredient", mainIngredient);
+    formData.append("dietary-preference", dietaryPreference);
+
+    request.send(formData)
+  })
 }

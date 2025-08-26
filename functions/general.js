@@ -5,3 +5,5 @@ async function updateMain(htmlContent) {
     main.innerHTML = htmlContent;
     main.style.opacity = '1'; // fade in
 }
+
+export { updateMain }

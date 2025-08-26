@@ -28,8 +28,12 @@ form{
     margin-bottom: 0.8rem;
     width: 40%;
 }
+.prompt-container{
+    position: relative;
+    top: 15rem;
+}
 .prompt-container form{
-    width: 100%;
+    width: 70%;
 }
 .login-container form,
 .signup-container form
@@ -75,9 +79,9 @@ label{
 .prompt-container input[type="text"]{
     border-radius: 0.5rem;
     height: 50px;
-    width: 100%;
+    width:70%;
     margin-bottom: 1rem;
-    padding: 0.2rem;
+    padding: 0.5rem;
     border-color: #8080803d;
 }
 input[type="submit"]{
@@ -97,4 +101,23 @@ input[type="submit"]:disabled{
     text-decoration: none;
     color:black;
     padding-right: 0.2rem;
+}
+
+.main-header{
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+
+.main-header a{
+    text-decoration: none;
+    color: inherit;
+}
+#footer{
+ position: fixed;
+ bottom: 1rem;
+ width: 100%;
+ text-align: center;
 }
