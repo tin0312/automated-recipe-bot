@@ -15,7 +15,6 @@
         <a href="#">Home</a>
         <a href="#view-recipes">View recipes</a>
         <a href="#add-recipes">Add recipes</a>
-        <div id="header-search"></div>
     </div>
     <div id="main-content" class="main-content hide-left-menu hide-header"></div>
     <div id="footer" class="footer">

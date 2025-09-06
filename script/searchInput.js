@@ -8,13 +8,14 @@ export async function searchInput() {
                 <input id ="user-input" type="text" name="user-input" placeholder="Search for recipes..." />
                 <input type="submit" value="Send" disabled />
             </form>
-            <div id="results"></div>
         </section>
+        <div id="results"></div>
     `;
 
     await updateMain(html);
 
     const promptContainer = document.querySelector(".prompt-container");
+    const promptTitle = document.getElementById("prompt-title");
     const userInput = document.querySelector('#main-content input[type="text"]');
     const submitBtn = document.querySelector('#main-content input[type="submit"]');
     const form = document.querySelector('#main-content form');
@@ -22,8 +23,6 @@ export async function searchInput() {
     userInput.addEventListener("input", () => {
         submitBtn.disabled = userInput.value.trim() === "";
     });
-    const promptTitle = document.getElementById("prompt-title");
-    const headerSearch = document.getElementById("header-search");
 
     const mainIngredientsSet = new Set(["beef", "chicken", "pork", "fish", "rice", "pasta", "vegetables"]);
     const cuisinesSet = new Set(["vietnamese", "japanese", "italian", "mexican", "american"]);
@@ -75,16 +74,13 @@ export async function searchInput() {
             if (this.readyState === 4 && this.status === 200) {
                 const response = JSON.parse(this.responseText);
                 console.log(response);
-                if (headerSearch && !headerSearch.hasChildNodes()) {
-                    promptContainer.classList.add("remove-top");
-                    headerSearch.appendChild(form); // move form
-                    promptTitle.style.display = "none"; // hide "What should we eat today?"
-                    form.classList.add("header-search-form"); // add styling
-                }
                 if (!Array.isArray(response)) {
                     resultsContainer.innerHTML = "<p>No recipes found.</p>";
                     return;
                 }
+                promptContainer.classList.add("remove-top");
+                promptTitle.classList.add("hidden");
+                form.classList.add("search-form-change");
                 let output = `<div class="recipes-wrapper"><h2>Recipes - Results</h2>`;
                 response.forEach(recipe => {
                     output += `

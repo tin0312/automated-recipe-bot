@@ -16,9 +16,9 @@ main .verification-container{
     margin-top: 30vh;
 }
 section{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
 }
 form{
     display: flex;
@@ -33,7 +33,7 @@ form{
     top: 15rem;
 }
 .prompt-container form{
-    width: 70%;
+    width: 100%;
 }
 .login-container form,
 .signup-container form
@@ -67,8 +67,8 @@ form{
 
 h1{
     font-weight: normal;
-    margin-bottom: 2rem;
     font-size: 2rem;
+    margin: 0 auto 2rem;
 }
 .verification-container h1{
     font-size: 1rem;
@@ -136,10 +136,16 @@ input[type="submit"]:disabled{
     top: 0;
 }
 
-.header-search-form{
-    flex-direction: row;
-    width: auto;
-    gap: 1rem;
-    align-items: start;
+.hidden{
+    display: none;
 }
-
+.search-form-change{
+    flex-direction: row;
+    gap: 1rem;
+    align-items: baseline;
+    justify-content: flex-start;
+    margin-top: 3rem;
+}
+.recipes-wrapper h2{
+    margin-bottom: 2rem;
+}
