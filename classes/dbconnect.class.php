@@ -32,14 +32,6 @@ class DbConnect
         $this->pass = $pass ?? $_ENV['DB_PASS'];
         $this->db = $db;
         $this->port = $port ?? (int) ($_ENV['DB_PORT'] ?? 3306);
-
-        // Debug output
-        echo "Final values:<br>";
-        echo "Host: " . $this->host . "<br>";
-        echo "User: " . $this->user . "<br>";
-        echo "Password: " . (empty($this->pass) ? '[empty]' : '[set]') . "<br>";
-        echo "Port: " . $this->port . "<br>";
-        echo "Database: " . $this->db . "<br>";
     }
 
     public function connect(): PDO

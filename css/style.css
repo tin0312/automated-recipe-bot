@@ -121,3 +121,25 @@ input[type="submit"]:disabled{
  width: 100%;
  text-align: center;
 }
+
+.recipes-wrapper{
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 5rem;
+}
+.recipe-container{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.remove-top{
+    top: 0;
+}
+
+.header-search-form{
+    flex-direction: row;
+    width: auto;
+    gap: 1rem;
+    align-items: start;
+}
+

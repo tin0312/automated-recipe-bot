@@ -82,7 +82,7 @@ export async function addRecipes() {
     const mainIngredient = document.getElementById('main-ingredient')?.value.trim() || '';
     const dietaryPreference = document.getElementById('dietary-preference')?.value.trim() || '';
 
-    request.open("POST", "../automated-recipe-bot/api/recipes/addRecipes.api.php", true);
+    request.open("POST", "/automated-recipe-bot/api/recipes/addRecipes.api.php", true);
     request.onreadystatechange = function () {
       if (this.readyState === 4 && this.status === 200) {
         //  const response = JSON.parse(this.responseText);
