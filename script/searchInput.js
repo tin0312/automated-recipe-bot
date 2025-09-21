@@ -73,7 +73,6 @@ export async function searchInput() {
         request.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 const response = JSON.parse(this.responseText);
-                console.log(response);
                 if (!Array.isArray(response)) {
                     resultsContainer.innerHTML = "<p>No recipes found.</p>";
                     return;

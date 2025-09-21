@@ -2,32 +2,31 @@ import { updateMain } from "../functions/general.js";
 
 
 // this route would show user's specific recipes 
-let recipes = null;
-
 function getRecipes() {
     const request = new XMLHttpRequest();
     request.open("POST", "/automated-recipe-bot/api/recipes/showRecipes.api.php");
-    console.log("Gettinf the recipes...")
     request.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            console.log(this.responseText);
-            recipes = JSON.parse(this.responseText);
+            const response = JSON.parse(this.responseText);
+            const recipes = response.data
+            let output = `<div class="recipes-wrapper"><h2>Recipes</h2>`;
 
-            const html = `<div class="recipes-wrapper">
-            <div class="recipe-container">
-                 <h1>List of recipes</h1>
-        <h4>Name: ${recipes.name}</h4>
-        <p>Description: ${recipes.description}</p>
-        <p>Main ingredient: ${recipes.main_ingredient}</p>
-        <p>Instruction: ${recipes.instructions}</p>
-        <p>Video URL: ${recipes.video_url}</p>
-            </div>
-    </div>`
-            updateMain(html)
+            recipes.forEach(recipe => {
+                output += `<div class="recipes-wrapper">
+                            <div class="recipe-container">
+                                <h4>Name: ${recipe.name}</h4>
+                                <p>Description: ${recipe.description}</p>
+                                <p>Main ingredient: ${recipe.main_ingredient}</p>
+                                <p>Instruction: ${recipe.instructions}</p>
+                                <p>Video URL: ${recipe.video_url}</p>
+                            </div>
+                        </div>`
+            })
+            output += `</div>`;
+            updateMain(output);
         }
     }
     const formData = new FormData();
-    formData.append("searchInput", "beef");
     request.send(formData);
 }
 

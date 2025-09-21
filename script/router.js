@@ -1,6 +1,6 @@
 import { searchInput } from "./searchInput.js";
 import { addRecipes } from "./addRecipes.js";
-import { showRecipes } from "./showRecipes.js"; // optional
+import { showRecipes } from "./showRecipes.js";
 
 function handleRoute() {
     const hash = window.location.hash.slice(1);
