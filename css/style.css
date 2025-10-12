@@ -7,6 +7,7 @@ body{
     height: 100vh;
     background-color: #f9f9f9;
     color: #222;
+    position: relative;
 }
 main{
     margin: 15vh auto;
@@ -103,11 +104,23 @@ input[type="submit"]:disabled{
     padding-right: 0.2rem;
 }
 
-.main-header{
+.navigation-menu{
     display: flex;
     justify-content: center;
-    padding: 2rem;
     gap: 2rem;
+}
+
+.main-header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2em;
+}
+
+.authentication-btn-container{
+    display: flex;
+    gap: 1em;
 }
 
 
@@ -148,4 +161,38 @@ input[type="submit"]:disabled{
 }
 .recipes-wrapper h2{
     margin-bottom: 2rem;
+}
+.modal-open{
+    background-color: #FFF;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    border-radius: 5px;
+    width: 21%;
+}
+#modal-overlay{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background-color: rgba(0,0,0, 0.8 );
+ }
+
+form#sign-up{
+    padding: 2em;
+    margin: 0 auto;
+    height: 50%;
+    width:35%; 
+}
+input{
+    padding: 0.2em;
+}
+.shown{
+    display: block;
+}
+
+.hidden{
+    display: none;
 }

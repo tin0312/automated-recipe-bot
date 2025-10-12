@@ -1,3 +1,9 @@
+<?php
+
+include_once "./includes/session.inc.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,17 +13,30 @@
     <title>Cook GPT</title>
     <link rel="stylesheet" href="css/style.css">
     <script type="module" src="script/router.js"></script>
+    <script src="script/registrationForm.js"></script>
 </head>
 
 <body>
     <div id="errors" class=""></div>
+    <div id="modal"></div>
+    <div id="modal-overlay" class="hidden"></div>
     <div id="main-header" class="main-header">
-        <a href="#">Home</a>
-        <a href="#view-recipes">View recipes</a>
-        <a href="#add-recipes">Add recipes</a>
+        <div class="spacer"></div>
+        <div class="navigation-menu">
+            <a href="#">Home</a>
+            <a href="#view-recipes">View recipes</a>
+            <a href="#add-recipes">Add recipes</a>
+        </div>
+        <div class="authentication-btn-container">
+            <button onclick="signIn()">Login</button>
+            <button onclick="registrationForm()">Sign up</button>
+        </div>
     </div>
     <div id="main-content" class="main-content hide-left-menu hide-header"></div>
     <div id="footer" class="footer">
         &copy; <?= date('Y') ?> Truong Nhat Hoang || All right reserve
     </div>
+    <script>
+        const csrfToken = '<?php echo $csrf_token ?>';
+    </script>
 </body>
