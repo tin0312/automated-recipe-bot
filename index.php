@@ -18,8 +18,11 @@ include_once "./includes/session.inc.php";
 
 <body>
     <div id="errors" class=""></div>
-    <div id="modal"></div>
-    <div id="modal-overlay" class="hidden"></div>
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal" id="modal">
+            <button class="close-btn" id="closeModal" onclick="closeModal()">&times;</button>
+        </div>
+    </div>
     <div id="main-header" class="main-header">
         <div class="spacer"></div>
         <div class="navigation-menu">
@@ -38,5 +41,10 @@ include_once "./includes/session.inc.php";
     </div>
     <script>
         const csrfToken = '<?php echo $csrf_token ?>';
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove("active");
+            document.body.style.overflow = 'auto';
+        }
     </script>
 </body>

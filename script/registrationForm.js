@@ -1,29 +1,41 @@
 function registrationForm() {
-  // get the modal
+  //open the modal
+  document.getElementById('modalOverlay').classList.add('active');
+
   const modal = document.getElementById("modal");
-  modal.classList.add("modal-open");
-  document.getElementById("modal-overlay").classList.toggle("hidden");
+
+  const closeBtn = document.getElementById('closeModal');
+  modal.innerHTML = '';
+  modal.appendChild(closeBtn);
 
   // create sign up form
   const registrationForm = `
         <form id="sign-up" action="http://localhost/automated-recipe-bot/api/register/userRegistration.api.php" method="POST">
           <input type="hidden" name="csrf_token" value= '${csrfToken}'/> 
-          <label for="email">Email:</label><br>
-          <input type="email" id="email" name="email" required><br><br>
+          <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" required>
+          </div>
+        
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required minlength="3" maxlength="30">
+          </div>
           
-          <label for="username">Username:</label><br>
-          <input type="text" id="username" name="username" required minlength="3" maxlength="30"><br><br>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="8">
+          </div>
 
-          <label for="password">Password:</label><br>
-          <input type="password" id="password" name="password" required minlength="8"><br><br>
+          <div class="form-group">
+            <label for="confirm_password">Re-type Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required minlength="8">
+          </div>
+          
 
-          <label for="confirm_password">Re-type Password:</label><br>
-          <input type="password" id="confirm_password" name="confirm_password" required minlength="8"><br><br>
-
-          <button type="submit">Sign Up</button>  
+          <button type="submit" class="btn-submit">Sign Up</button>  
         </form>  
           `;
-  modal.innerHTML = registrationForm;
+  modal.insertAdjacentHTML('beforeend', registrationForm);
   return registrationForm;
-
 }
