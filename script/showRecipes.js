@@ -1,4 +1,4 @@
-import { updateMain } from "../functions/general.js";
+import { updateMain } from "./general.js";
 
 
 // this route would show user's specific recipes 

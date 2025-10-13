@@ -1,4 +1,4 @@
-import { updateMain } from "../functions/general.js";
+import { updateMain } from "./general.js";
 
 export async function searchInput() {
     const html = `

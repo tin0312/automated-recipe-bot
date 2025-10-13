@@ -6,5 +6,6 @@
     "terminal.integrated.fontSize": 15,
     "chat.editor.fontSize": 15,
     "markdown.preview.fontSize": 15,
-    "tailwindCSS.rootFontSize": 15
+    "tailwindCSS.rootFontSize": 15,
+    "php.version": "8.4"
 }
