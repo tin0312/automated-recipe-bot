@@ -4,15 +4,17 @@
 include_once "../../includes/session.inc.php";
 
 
+$currentTime = round(microtime(true) * 1000);
+
 // DATA EXTRACTION LOOP 
 foreach ($_POST as $key => $value) {
     $$key = $value;
 }
 
-// check CSFR 
+// CHECK CSFR 
 if (!isset($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $csrf_token)) {
     $response = [
-        'code' => 404,
+        'code' => 105,
         'message' => 'Invalid form',
         'data' => ''
     ];
@@ -20,4 +22,13 @@ if (!isset($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $cs
     echo json_encode($response);
 }
 
-echo "VALID FORM";
+// Honey pot - prevent bot spam
+if ((strlen($random_field) >= 1) || ($currentTime - $timestamp) < 10) {
+    $response = [
+        'code' => 105,
+        'message' => 'Invalid form',
+        'data' => ''
+    ];
+
+    echo json_encode($response);
+}

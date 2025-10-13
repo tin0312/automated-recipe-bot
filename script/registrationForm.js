@@ -32,6 +32,9 @@ function registrationForm() {
             <input type="password" id="confirm_password" name="confirm_password" required minlength="8">
           </div>
           
+          <input class="hny" id="mobilenumber" type="text" name="random_field"  autocomplete="off">
+		      <input type="hidden" name="timestamp" value= '${Date.now()}'>
+
 
           <button type="submit" class="btn-submit">Sign Up</button>  
         </form>  
