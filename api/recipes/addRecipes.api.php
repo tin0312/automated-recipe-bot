@@ -3,15 +3,14 @@
 require_once "../../classes/dbconnect.class.php";
 
 $db = new DbConnect("automated_recipe_bot");
-
-$pdo = $db->connect();  
+$pdo = $db->connect();
 
 $sql = "INSERT INTO recipes (name, description, main_ingredient, instructions, video_url) 
 VALUES (:name, :description, :main_ingredient, :instructions, :video_url)";
 
-$stmt = $pdo -> prepare($sql);
+$stmt = $pdo->prepare($sql);
 
-$stmt -> execute([
+$stmt->execute([
     ":name" => $_POST["recipe-name"],
     ":description" => $_POST["recipe-description"],
     ":main_ingredient" => $_POST["main-ingredient"],

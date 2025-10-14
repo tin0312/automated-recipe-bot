@@ -1,4 +1,20 @@
-
+# Composer dependencies
 /vendor/
 
-/schema.sql
+# Database schema (optional)
+schema.sql
+
+# Environment variables
+.env
+
+# Logs and cache
+*.log
+/storage/
+.cache/
+
+# OS & IDE junk
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+

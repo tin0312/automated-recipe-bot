@@ -3,12 +3,15 @@
 
 include_once "../../includes/session.inc.php";
 include_once "../../functions/validations.func.php";
+require_once "../../classes/dbconnect.class.php";
+
+$db = new DbConnect("automated_recipe_bot");
+$pdo = $db->connect();
 
 
 $currentTime = round(microtime(true) * 1000);
 
 // Error message array
-
 $error = [];
 
 // DATA EXTRACTION LOOP 
@@ -62,5 +65,26 @@ if (count($error) > 0) {
     ];
 
     echo json_encode($response);
+} else {
+    // AFTER SUCESSFUL REGISTRATION
+    // 1: Encrypt user data
+    [$encrypted_username, $encrypted_username_hash] = encrypt($username);
+    [$email_crypt, $email_hash] = encrypt($email);
+
+    $stmt = $pdo->prepare("SELECT count(*) AS `rows` from `user` WHERE `email_hash` = :email_hash");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($result['rows'] > 0) {
+        $response = [
+            'code' => '105',
+            'message' => 'Email already exists',
+            'data' => ''
+        ];
+
+        echo json_encode($response);
+        exit();
+    }
+
 }
 
