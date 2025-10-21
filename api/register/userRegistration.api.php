@@ -69,7 +69,7 @@ if (count($error) > 0) {
     // AFTER SUCESSFUL REGISTRATION
     // 1: Encrypt user data
     [$encrypted_username, $encrypted_username_hash] = encrypt($username);
-    [$email_crypt, $email_hash] = encrypt($email);
+    [$encrypted_email, $email_hash] = encrypt($email);
 
     $stmt = $pdo->prepare("SELECT count(*) AS `rows` from `user` WHERE `email_hash` = :email_hash");
     $stmt->execute();
@@ -85,6 +85,24 @@ if (count($error) > 0) {
         echo json_encode($response);
         exit();
     }
+
+    // Get user data to save as a JSON in the database
+    $user_data = [
+        'username' => $encrypted_username,
+        'email' => $encrypted_email,
+        'password' => $password
+    ];
+
+    $user_data = json_encode($user_data);
+
+    // create verification code
+    $activation_code = mt_rand(10000, 99999);
+
+    $stmt = $pdo->prepare("INSERT INTO `temp_registration` (`activation_code`, `timestamp`, `user_data`) VALUES (:activation_code, current_timestamp(), :user_data)");
+    $stmt->bindParam(":activation_code", $activation_code);
+    $stmt->bindParam(":user_data", $user_data);
+
+    $stmt->execute();
 
 }
 
