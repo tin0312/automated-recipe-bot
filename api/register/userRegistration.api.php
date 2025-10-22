@@ -103,6 +103,27 @@ if (count($error) > 0) {
     $stmt->bindParam(":user_data", $user_data);
 
     $stmt->execute();
+    $temp_id = $pdo->lastInsertId();
 
+    // CREATE EMAIL TEMPLATE TO SEND REGISTRATION ACTIVATION CODE
+    $subject = "Automated Recipe Bot";
+    $recipient = $email;
+    $message = '
+    
+    <!DOCTYPE html>
+<html lang="en">
+    <body>
+    <div style="max-width: 40rem; margin: 0 auto;">
+        <p style="text-align: center;"><img src="" width="260" height="120" alt="logo"></p>
+        <br>
+        <h1 style="text-align: center;">Activation code</h1>
+        <p style="text-align: center;"> Please use this code to complete the registration.</p>
+        <div style="text-align: center; font-size: 300%; font-weight: bold; margin-bottom: 20px;">' . $temp_id . $activation_code . '</div>
+    </div>
+    
+    </body>    
+</html>
+
+    ';
 }
 
