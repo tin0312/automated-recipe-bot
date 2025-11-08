@@ -1,10 +1,10 @@
 <?php
 
-require_once '../includes/constant.inc.php';
-
 function getBlindIndex($string): string
 {
-    $index_key = base64_decode(CRYPT['indexKey']);
+    $index_key = base64_decode(string: CRYPT['indexKey']);
+    // var_dump($index_key);
+    // exit();
     return bin2hex(
         sodium_crypto_pwhash(
             32,

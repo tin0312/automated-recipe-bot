@@ -1,9 +1,11 @@
 <?php
 
-
 include_once "../../includes/session.inc.php";
 include_once "../../functions/validations.func.php";
 require_once "../../classes/dbconnect.class.php";
+include_once "../../functions/emailSender.func.php";
+include_once "../../includes/constant.inc.php";
+include_once "../../functions/functions.func.php";
 
 $db = new DbConnect("automated_recipe_bot");
 $pdo = $db->connect();
@@ -72,7 +74,7 @@ if (count($error) > 0) {
     [$encrypted_email, $email_hash] = encrypt($email);
 
     $stmt = $pdo->prepare("SELECT count(*) AS `rows` from `user` WHERE `email_hash` = :email_hash");
-    $stmt->execute();
+    $stmt->execute(['email_hash' => $email_hash]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($result['rows'] > 0) {
@@ -95,35 +97,55 @@ if (count($error) > 0) {
 
     $user_data = json_encode($user_data);
 
-    // create verification code
-    $activation_code = mt_rand(10000, 99999);
+    try {
+        // create verification code
+        $activation_code = mt_rand(10000, 99999);
 
-    $stmt = $pdo->prepare("INSERT INTO `temp_registration` (`activation_code`, `timestamp`, `user_data`) VALUES (:activation_code, current_timestamp(), :user_data)");
-    $stmt->bindParam(":activation_code", $activation_code);
-    $stmt->bindParam(":user_data", $user_data);
+        $stmt = $pdo->prepare("INSERT INTO `temp_registration` (`activation_code`, `timestamp`, `user_data`) VALUES (:activation_code, current_timestamp(), :user_data)");
+        $stmt->bindParam(":activation_code", $activation_code);
+        $stmt->bindParam(":user_data", $user_data);
 
-    $stmt->execute();
-    $temp_id = $pdo->lastInsertId();
+        $stmt->execute();
+        $temp_id = $pdo->lastInsertId();
 
-    // CREATE EMAIL TEMPLATE TO SEND REGISTRATION ACTIVATION CODE
-    $subject = "Automated Recipe Bot";
-    $recipient = $email;
-    $message = '
-    
-    <!DOCTYPE html>
-<html lang="en">
-    <body>
-    <div style="max-width: 40rem; margin: 0 auto;">
-        <p style="text-align: center;"><img src="" width="260" height="120" alt="logo"></p>
-        <br>
-        <h1 style="text-align: center;">Activation code</h1>
-        <p style="text-align: center;"> Please use this code to complete the registration.</p>
-        <div style="text-align: center; font-size: 300%; font-weight: bold; margin-bottom: 20px;">' . $temp_id . $activation_code . '</div>
-    </div>
-    
-    </body>    
-</html>
+        // CREATE EMAIL TEMPLATE TO SEND REGISTRATION ACTIVATION CODE
+        $subject = "Automated Recipe Bot";
+        $recipient = $email;
+        $message = '
+            <!DOCTYPE html>
+            <html lang="en">
+                <body>
+                <div style="max-width: 40rem; margin: 0 auto;">
+                    <p style="text-align: center;"><img src="" width="260" height="120" alt="logo"></p>
+                    <br>
+                    <h1 style="text-align: center;">Activation code</h1>
+                    <p style="text-align: center;"> Please use this code to complete the registration.</p>
+                    <div style="text-align: center; font-size: 300%; font-weight: bold; margin-bottom: 20px;">' . $temp_id . $activation_code . '</div>
+                </div>
+                
+                </body>    
+            </html>';
 
-    ';
+        if (sendEmail($subject, $recipient, $message)) {
+            $response = [
+                'code' => SUCCESS_CODE,
+                'message' => 'Activation code has been sent to your email',
+                'data' => ''
+            ];
+        } else {
+            $response = [
+                'code' => EMAIL_ERROR_CODE,
+                'message' => 'There was an error sending activation code',
+                'data' => ''
+            ];
+        }
+        echo json_encode($response);
+    } catch (Exception $e) {
+        $response = [
+            'code' => DATABASE_ERROR,
+            'message' => 'Database error occured',
+            'data' => ''
+        ];
+        echo json_encode($response);
+    }
 }
-

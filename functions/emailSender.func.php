@@ -1,35 +1,30 @@
 <?php
-
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
-function sendEmail(
-    string $to,
-    string $subject,
-    string $body
-): bool {
-    $mail = new PHPMailer();
-
+function sendEmail($email, $fullName, $ranCode)
+{
+    $mail = new PHPMailer(true);
     try {
-        // SMTP Configuration
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
+        $mail->Host = /** @lang text */
+            'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'your-email@gmail.com';  // Your Gmail
-        $mail->Password = 'your-app-password';      // Gmail App Password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Username = $_ENV['USER_EMAIL'];
+        $mail->Password = $_ENV['USER_PASSWORD'];
+        $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
-        // Email Content
-        $mail->setFrom('your-email@gmail.com', 'Your Name');
-        $mail->addAddress($to);
-        $mail->Subject = $subject;
-        $mail->Body = $body;
-        $mail->isHTML(false);
+        // recipient
+        $mail->setFrom('automatedrecipebot@gmail.com', 'CookGPT');
+        $mail->addAddress($email, $fullName);
 
+        // Content
+        $mail->isHTML(false);
+        $mail->Subject = 'CookGPT - Verify Email';
+        $mail->Body = "Hello $fullName, \n\n Your verification code is $ranCode";
         $mail->send();
         return true;
     } catch (Exception $e) {
-        return false;
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 }

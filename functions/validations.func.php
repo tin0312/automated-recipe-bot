@@ -58,7 +58,7 @@ function passwordValidation($password): void
     }
 
     // Strong password validation
-    $regex = "/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z@$!%*?&\d]{8,}$/";
+    $regex = "/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z@.$!%*?&\d]{8,}$/";
 
     if (!preg_match($regex, $password)) {
         $error[] = 'Password must be at least 8 characters and contain: uppercase letter, number, and special character (@$!%*?&)';
