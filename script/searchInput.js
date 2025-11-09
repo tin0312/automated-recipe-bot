@@ -1,5 +1,3 @@
-import { updateMain } from "./general.js";
-
 export async function searchInput() {
     const html = `
         <section class="prompt-container">

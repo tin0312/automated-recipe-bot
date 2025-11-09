@@ -1,6 +1,3 @@
-import { updateMain } from "./general.js";
-
-
 // this route would show user's specific recipes 
 function getRecipes() {
     const request = new XMLHttpRequest();

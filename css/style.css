@@ -1,3 +1,5 @@
+@import "root.css";
+
 * {
   padding: 0;
   margin: 0;
@@ -218,6 +220,7 @@ form#sign-up input input:focus {
 }
 
 .form-group {
+  position: relative;
   width: 100%;
   margin-bottom: 2em;
 }
@@ -268,4 +271,10 @@ form#sign-up input input:focus {
 
 .hny {
   display: none;
+}
+
+.toggle-icon {
+  position: absolute;
+  right: 0.5em;
+  top: 2.5em;
 }

@@ -1,6 +1,3 @@
-import { updateMain } from "./general.js";
-
-
 export async function addRecipes() {
   const html = `
        <a href="#">Home</a>

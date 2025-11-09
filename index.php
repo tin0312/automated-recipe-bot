@@ -14,6 +14,8 @@ include_once "./includes/session.inc.php";
     <link rel="stylesheet" href="css/style.css">
     <script type="module" src="script/router.js"></script>
     <script src="script/registrationForm.js"></script>
+    <link rel="stylesheet" href="css/all.min.css" />
+    <script src="script/general.js"></script>
 </head>
 
 <body>
