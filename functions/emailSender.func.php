@@ -1,7 +1,7 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 
-function sendEmail($email, $fullName, $ranCode)
+function sendEmail($email, $subject, $recipient, $message, $altBody)
 {
     $mail = new PHPMailer(true);
     try {
@@ -16,12 +16,13 @@ function sendEmail($email, $fullName, $ranCode)
 
         // recipient
         $mail->setFrom('automatedrecipebot@gmail.com', 'CookGPT');
-        $mail->addAddress($email, $fullName);
+        $mail->addAddress($email, $recipient);
 
         // Content
-        $mail->isHTML(false);
-        $mail->Subject = 'CookGPT - Verify Email';
-        $mail->Body = "Hello $fullName, \n\n Your verification code is $ranCode";
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $message;
+        $mail->AltBody = $altBody;
         $mail->send();
         return true;
     } catch (Exception $e) {

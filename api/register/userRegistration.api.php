@@ -109,14 +109,16 @@ if (count($error) > 0) {
         $temp_id = $pdo->lastInsertId();
 
         // CREATE EMAIL TEMPLATE TO SEND REGISTRATION ACTIVATION CODE
-        $subject = "Automated Recipe Bot";
-        $recipient = $email;
+        $subject = "CookGPT - Verify Email";
+        $recipient = $username;
         $message = '
             <!DOCTYPE html>
             <html lang="en">
                 <body>
                 <div style="max-width: 40rem; margin: 0 auto;">
                     <p style="text-align: center;"><img src="" width="260" height="120" alt="logo"></p>
+                    <br>
+                    <p>Hello ' . $recipient . '</p>
                     <br>
                     <h1 style="text-align: center;">Activation code</h1>
                     <p style="text-align: center;"> Please use this code to complete the registration.</p>
@@ -126,7 +128,9 @@ if (count($error) > 0) {
                 </body>    
             </html>';
 
-        if (sendEmail($subject, $recipient, $message)) {
+        $altBody = "Hello " . $recipient . ",\n\nYour verification code is " . $temp_id . $activation_code . ".";
+
+        if (sendEmail($email, $subject, $recipient, $message, $altBody)) {
             $response = [
                 'code' => SUCCESS_CODE,
                 'message' => 'Activation code has been sent to your email',
